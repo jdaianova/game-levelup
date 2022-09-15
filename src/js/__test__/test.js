@@ -3,9 +3,7 @@ import Character from '../mainclass_character';
 test.each([21, 'moreThen10simbols', 'a'])(
   'cheking create class Character wrong name',
   (name) => {
-    expect(() => {
-      const character = new Character(name);
-    }).toThrow('incorrect values');
+    expect(() => new Character(name)).toThrow('incorrect values');
   },
 );
 
@@ -27,9 +25,12 @@ test('checking method levelup', () => {
   const char = new Character('Ivan');
   char.health = 90;
   char.levelUp();
-  expect(char.health).toBe(100);
-  expect(char.attack).toBe(30);
-  expect(char.defence).toBe(30);
+  const expected = new Character('Ivan');
+  expected.level = 2;
+  expected.health = 100;
+  expected.attack = 30;
+  expected.defence = 30;
+  expect(char).toEqual(expected);
   expect(() => {
     char.health = 0;
     char.levelUp();
